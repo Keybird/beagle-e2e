@@ -6,9 +6,6 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk
 
-    environment:
-      - DOCKERHUB_TAG: ${CIRCLE_BRANCH/\//-}_${CIRCLE_BUILD_NUM
-
     steps:
       - checkout
 
@@ -19,14 +16,17 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
       - run: |
+          export DOCKERHUB_TAG=${CIRCLE_BRANCH/\//-}-${CIRCLE_BUILD_NUM}
           case "${CIRCLE_BRANCH}" in
               master)
+                echo "Building docker image with tag ${DOCKERHUB_TAG} and latest."
                 docker build -t keybird/beagle-e2e:${DOCKERHUB_TAG} .
                 docker tag keybird/beagle-e2e:${DOCKERHUB_TAG} keybird/beagle-e2e:latest
                 docker push keybird/beagle-e2e:${DOCKERHUB_TAG}
                 docker push keybird/beagle-e2e:latest
                 ;;
               *)
+                echo "Building docker image with tag ${DOCKERHUB_TAG}."
                 docker build -t keybird/beagle-e2e:${DOCKERHUB_TAG} .
                 docker push keybird/beagle-e2e:${DOCKERHUB_TAG}
                 ;;
