@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/beagle-repository
+
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+    environment:
+      - DOCKERHUB_TAG: ${CIRCLE_BRANCH/\//-}_${CIRCLE_BUILD_NUM
+
+    steps:
+      - checkout
+
+      # enable docker in docker
+      - setup_remote_docker
+
+      # Prepare the e2e image
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - run: |
+          case "${CIRCLE_BRANCH}" in
+              master)
+                docker build -t keybird/beagle-e2e:${DOCKERHUB_TAG} .
+                docker tag keybird/beagle-e2e:${DOCKERHUB_TAG} keybird/beagle-e2e:latest
+                docker push keybird/beagle-e2e:${DOCKERHUB_TAG}
+                docker push keybird/beagle-e2e:latest
+                ;;
+              *)
+                docker build -t keybird/beagle-e2e:${DOCKERHUB_TAG} .
+                docker push keybird/beagle-e2e:${DOCKERHUB_TAG}
+                ;;
+            esac
