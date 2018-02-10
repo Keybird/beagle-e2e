@@ -8,6 +8,7 @@ curl --version
 
 # start selenium server in background
 echo "Starting selenium server"
+webdriver-manager update
 webdriver-manager start &
 
 # small delay

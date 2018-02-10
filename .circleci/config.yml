@@ -15,6 +15,7 @@ jobs:
       # Prepare the e2e image
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
+      # Build image
       - run: |
           export DOCKERHUB_TAG=${CIRCLE_BRANCH/\//-}-${CIRCLE_BUILD_NUM}
           case "${CIRCLE_BRANCH}" in
