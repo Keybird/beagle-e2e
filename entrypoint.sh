@@ -15,7 +15,7 @@ webdriver-manager start &
 sleep 5
 
 # Download all dependencies
-yarn install
+yarn
 
 # run test
 echo "Running tests"
