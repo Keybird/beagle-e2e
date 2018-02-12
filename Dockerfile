@@ -21,8 +21,9 @@ RUN  apt update \
 RUN apt update \
     && apt install -y libxi6 libgconf-2-4
 
-# Install Protractor
+# Install Stuff
 RUN npm install -g protractor@5.2.2
+RUN npm install -g yarn@0.27.5
 
 # Update webdriver
 RUN webdriver-manager update

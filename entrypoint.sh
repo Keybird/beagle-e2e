@@ -14,6 +14,9 @@ webdriver-manager start &
 # small delay
 sleep 5
 
+# Download all dependencies
+yarn install
+
 # run test
 echo "Running tests"
 protractor $@
