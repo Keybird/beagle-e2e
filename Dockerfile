@@ -24,6 +24,11 @@ RUN apt update \
     && apt install -y libxi6 libgconf-2-4 \
     && apt autoclean -y && apt clean
 
+# Install Maven
+RUN apt update \
+    && apt install -y maven \
+    && apt autoclean -y && apt clean
+
 # Install Stuff
 RUN npm install -g protractor@5.2.2
 RUN npm install -g yarn@0.27.5
