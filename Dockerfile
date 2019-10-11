@@ -30,5 +30,5 @@ RUN apt update \
     && apt autoclean -y && apt clean
 
 # Install Stuff
-RUN npm install -g protractor@5.3.0
-RUN npm install -g yarn@1.3.2
+RUN npm install -g protractor@5.4.2
+RUN npm install -g yarn@1.19.1
